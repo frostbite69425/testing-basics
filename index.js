@@ -73,6 +73,12 @@ const functionObj = {
   },
 
   ceasarCipher(str, shiftFactor) {
+    if (!str || !shiftFactor) {
+      return "ceaserCipher needs a string and a shiftfactor to work";
+    }
+    if (typeof str !== "string" || typeof shiftFactor !== "number") {
+      return "ceaserCipher needs a valid string and a valid number as arguments";
+    }
     const reversedStr = shifter(str, shiftFactor);
     return reversedStr;
   },

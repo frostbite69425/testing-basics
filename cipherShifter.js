@@ -3,20 +3,38 @@ import alphabet from "./cipherArr.js";
 function shifter(str, shiftFactor) {
   const strArr = str.split("");
   const shiftedStrArr = [];
-  const punctuation = /\W\d/;
+  const punctuation = /[^a-zA-Z]/;
+  let cipherLetter;
+  let letterVar;
+  let upperCaseLetter = false;
   for (const letter of strArr) {
-    let alphabetIndex = alphabet.indexOf(letter);
-    let shiftedIndex = alphabetIndex + shiftFactor;
     if (punctuation.test(letter)) {
       shiftedStrArr.push(letter);
       continue;
     }
+    if (letter == letter.toUpperCase()) {
+      upperCaseLetter = true;
+      letterVar = letter.toLowerCase();
+    } else {
+      letterVar = letter;
+    }
+    let alphabetIndex = alphabet.indexOf(letterVar);
+    let shiftedIndex = alphabetIndex + shiftFactor;
+    let quotient = Math.abs(Math.floor(shiftedIndex / 26));
     if (shiftedIndex >= 26) {
-      const quotient = Math.floor(shiftedIndex / 26);
-      shiftedStrArr.push(alphabet[shiftedIndex - 26 * quotient]);
+      cipherLetter = alphabet[shiftedIndex - 26 * quotient];
+    } else if (shiftedIndex <= -1) {
+      cipherLetter = alphabet[26 * quotient - Math.abs(shiftedIndex)];
+    } else {
+      cipherLetter = alphabet[shiftedIndex];
+    }
+
+    if (upperCaseLetter) {
+      shiftedStrArr.push(cipherLetter.toUpperCase());
+      upperCaseLetter = false;
       continue;
     }
-    shiftedStrArr.push(alphabet[shiftedIndex]);
+    shiftedStrArr.push(cipherLetter);
   }
 
   return shiftedStrArr.join("");

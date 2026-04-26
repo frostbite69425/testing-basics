@@ -189,6 +189,56 @@ test("shifted works for simple strings without punctuation", () => {
   expect(functionObj.ceasarCipher("xyz", 3)).toBe("abc");
 });
 
+test("shifted works for simple strings with punctuation", () => {
+  expect(functionObj.ceasarCipher("xyz,", 3)).toBe("abc,");
+});
+
 test("shifted works for strings with numbers", () => {
   expect(functionObj.ceasarCipher("xyz1", 3)).toBe("abc1");
 });
+
+test("shifted preserves case and punctuation", () => {
+  expect(functionObj.ceasarCipher("PQRstU", 3)).toBe("STUvwX");
+});
+
+test("shifted works for a shift factor greater than 26", () => {
+  expect(functionObj.ceasarCipher("xyZ1,,", 29)).toBe("abC1,,");
+});
+
+test("shifted works for a negative shift factor", () => {
+  expect(functionObj.ceasarCipher("bcd,,", -1)).toBe("abc,,");
+});
+
+test("shifted preserves case and punctuation for a negative shift factor", () => {
+  expect(functionObj.ceasarCipher("bcdD,,", -1)).toBe("abcC,,");
+});
+
+test("shifted works for a negative shift factor lesser than -26", () => {
+  expect(functionObj.ceasarCipher("bcd", -27)).toBe("abc");
+});
+
+test("shifted works for a negative shift factor -1 > x > -26", () => {
+  expect(functionObj.ceasarCipher("alkscjbascbkasbc", -19)).toBe(
+    "HSRZJQIHZJIRHZIJ".toLowerCase(),
+  );
+});
+
+test("shifted works for an absurdly large negative shift factor", () => {
+  expect(functionObj.ceasarCipher("alkscjbascbkasbc", -58)).toBe(
+    "UFEMWDVUMWVEUMVW".toLowerCase(),
+  );
+});
+
+test("shifted doesn't return undefined for invalid arguments", () => {
+  expect(functionObj.ceasarCipher(29)).toBeDefined();
+});
+
+test("shifted handles typeError correctly", () => {
+  expect(functionObj.ceasarCipher(29, "str")).toBe(
+    "ceaserCipher needs a valid string and a valid number as arguments",
+  );
+});
+
+// ANALYSE ARRAY
+
+// REQUIREMENTS: An analyzeArray function that takes an array of numbers and returns an object with the following properties: average, min, max, and length.

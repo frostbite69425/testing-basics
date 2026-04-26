@@ -1,4 +1,4 @@
-export default alphabet = [
+const alphabet = [
   "a",
   "b",
   "c",
@@ -26,3 +26,5 @@ export default alphabet = [
   "y",
   "z",
 ];
+
+export default alphabet;
