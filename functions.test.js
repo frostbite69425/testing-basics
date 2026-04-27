@@ -242,3 +242,44 @@ test("shifted handles typeError correctly", () => {
 // ANALYSE ARRAY
 
 // REQUIREMENTS: An analyzeArray function that takes an array of numbers and returns an object with the following properties: average, min, max, and length.
+
+test("arrayAnalyser doesn't return undefined for incorrect arguments", () => {
+  expect(functionObj.analyseArray()).toBeDefined();
+});
+
+test("arrayAnalyser doesn't return undefined for incorrect or missing arguments", () => {
+  expect(functionObj.analyseArray(89)).toBeDefined();
+});
+
+test("arrayAnalyser doesn't return undefined for an array of non numbers", () => {
+  expect(functionObj.analyseArray([1, 2, 4, "ab", "!32"])).toBe(
+    "array Analyser only operates on an array of numbers",
+  );
+});
+
+test("arrayAnalyser returns an object with min, max, length and avg properties for an array of numbers", () => {
+  expect(functionObj.analyseArray([1, 2, 4, 6])).toStrictEqual({
+    min: 1,
+    max: 6,
+    length: 4,
+    average: 3.25,
+  });
+});
+
+test("arrayAnalyser returns an object with min, max, length and avg properties for an array of numbers with negative numbers in them", () => {
+  expect(functionObj.analyseArray([-1, 2, 4, 6, 4])).toStrictEqual({
+    min: -1,
+    max: 6,
+    length: 5,
+    average: 3,
+  });
+});
+
+test("arrayAnalyser returns an object with min, max, length and avg properties for an array of numbers with random numbers in them", () => {
+  expect(functionObj.analyseArray([1, 8, 3, 4, 2, 6])).toStrictEqual({
+    min: 1,
+    max: 8,
+    length: 6,
+    average: 4,
+  });
+});

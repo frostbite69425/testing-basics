@@ -1,4 +1,5 @@
 import shifter from "./cipherShifter.js";
+import arrayAnalyser from "./arrayAnalyser.js";
 
 const functionObj = {
   capitalize(string) {
@@ -81,6 +82,20 @@ const functionObj = {
     }
     const reversedStr = shifter(str, shiftFactor);
     return reversedStr;
+  },
+
+  analyseArray(arr) {
+    if (!arr || !Array.isArray(arr)) {
+      return "arrayAnalyser requires an array of numbers as an argument";
+    }
+    for (const element of arr) {
+      if (typeof element !== "number") {
+        return "array Analyser only operates on an array of numbers";
+      }
+    }
+
+    const resultObj = arrayAnalyser(arr);
+    return resultObj;
   },
 };
 
